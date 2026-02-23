@@ -1,4 +1,6 @@
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class PalindromeChecker {
 
@@ -22,6 +24,9 @@ public class PalindromeChecker {
 
         // UC5
         palindromeUsingStack();
+
+        // UC6
+        palindromeUsingQueueAndStack();
     }
 
     // ================= UC1 =================
@@ -98,27 +103,55 @@ public class PalindromeChecker {
         String text = "civic";
         Stack<Character> stack = new Stack<>();
 
-        // Push characters into stack
         for (int i = 0; i < text.length(); i++) {
             stack.push(text.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-        // Pop and compare
         for (int i = 0; i < text.length(); i++) {
-            char poppedChar = stack.pop();
-
-            if (text.charAt(i) != poppedChar) {
+            if (text.charAt(i) != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
         }
 
         if (isPalindrome) {
-            System.out.println("UC5 Result: \"" + text + "\" is a Palindrome.");
+            System.out.println("UC5 Result: \"" + text + "\" is a Palindrome.\n");
         } else {
-            System.out.println("UC5 Result: \"" + text + "\" is NOT a Palindrome.");
+            System.out.println("UC5 Result: \"" + text + "\" is NOT a Palindrome.\n");
+        }
+    }
+
+    // ================= UC6 =================
+    private static void palindromeUsingQueueAndStack() {
+
+        String text = "refer";
+
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
+
+        // Enqueue & Push
+        for (int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            stack.push(ch);     // LIFO
+            queue.add(ch);      // FIFO
+        }
+
+        boolean isPalindrome = true;
+
+        // Compare dequeue vs pop
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("UC6 Result: \"" + text + "\" is a Palindrome.");
+        } else {
+            System.out.println("UC6 Result: \"" + text + "\" is NOT a Palindrome.");
         }
 
         System.out.println("\nProgram execution completed.");
