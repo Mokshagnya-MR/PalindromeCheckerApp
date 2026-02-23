@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 public class PalindromeChecker {
 
     // Application constants
@@ -17,6 +19,9 @@ public class PalindromeChecker {
 
         // UC4
         palindromeUsingCharArray();
+
+        // UC5
+        palindromeUsingStack();
     }
 
     // ================= UC1 =================
@@ -65,30 +70,55 @@ public class PalindromeChecker {
     private static void palindromeUsingCharArray() {
 
         String text = "radar";
-
-        // Convert String to char[]
         char[] characters = text.toCharArray();
 
         int start = 0;
         int end = characters.length - 1;
         boolean isPalindrome = true;
 
-        // Two-pointer technique
         while (start < end) {
-
             if (characters[start] != characters[end]) {
                 isPalindrome = false;
                 break;
             }
-
             start++;
             end--;
         }
 
         if (isPalindrome) {
-            System.out.println("UC4 Result: \"" + text + "\" is a Palindrome.");
+            System.out.println("UC4 Result: \"" + text + "\" is a Palindrome.\n");
         } else {
-            System.out.println("UC4 Result: \"" + text + "\" is NOT a Palindrome.");
+            System.out.println("UC4 Result: \"" + text + "\" is NOT a Palindrome.\n");
+        }
+    }
+
+    // ================= UC5 =================
+    private static void palindromeUsingStack() {
+
+        String text = "civic";
+        Stack<Character> stack = new Stack<>();
+
+        // Push characters into stack
+        for (int i = 0; i < text.length(); i++) {
+            stack.push(text.charAt(i));
+        }
+
+        boolean isPalindrome = true;
+
+        // Pop and compare
+        for (int i = 0; i < text.length(); i++) {
+            char poppedChar = stack.pop();
+
+            if (text.charAt(i) != poppedChar) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("UC5 Result: \"" + text + "\" is a Palindrome.");
+        } else {
+            System.out.println("UC5 Result: \"" + text + "\" is NOT a Palindrome.");
         }
 
         System.out.println("\nProgram execution completed.");
