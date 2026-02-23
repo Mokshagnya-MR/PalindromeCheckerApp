@@ -6,14 +6,17 @@ public class PalindromeChecker {
 
     public static void main(String[] args) {
 
-        // UC1: Display Welcome Message
+        // UC1
         displayWelcomeMessage();
 
-        // UC2: Hardcoded Palindrome Result
+        // UC2
         checkHardcodedPalindrome();
 
-        // UC3: Palindrome Check Using String Reverse
+        // UC3
         palindromeUsingReverse();
+
+        // UC4
+        palindromeUsingCharArray();
     }
 
     // ================= UC1 =================
@@ -21,8 +24,7 @@ public class PalindromeChecker {
         System.out.println("===========================================");
         System.out.println("        " + APP_NAME);
         System.out.println("              Version: " + VERSION);
-        System.out.println("===========================================");
-        System.out.println("Application started successfully!\n");
+        System.out.println("===========================================\n");
     }
 
     // ================= UC2 =================
@@ -45,19 +47,48 @@ public class PalindromeChecker {
     // ================= UC3 =================
     private static void palindromeUsingReverse() {
 
-        String original = "level";   // String Literal
+        String original = "level";
         String reversed = "";
 
-        // Reverse using for loop
         for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);   // String Concatenation
+            reversed = reversed + original.charAt(i);
         }
 
-        // Compare using equals() (content comparison)
         if (original.equals(reversed)) {
-            System.out.println("UC3 Result: \"" + original + "\" is a Palindrome.");
+            System.out.println("UC3 Result: \"" + original + "\" is a Palindrome.\n");
         } else {
-            System.out.println("UC3 Result: \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("UC3 Result: \"" + original + "\" is NOT a Palindrome.\n");
+        }
+    }
+
+    // ================= UC4 =================
+    private static void palindromeUsingCharArray() {
+
+        String text = "radar";
+
+        // Convert String to char[]
+        char[] characters = text.toCharArray();
+
+        int start = 0;
+        int end = characters.length - 1;
+        boolean isPalindrome = true;
+
+        // Two-pointer technique
+        while (start < end) {
+
+            if (characters[start] != characters[end]) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
+        }
+
+        if (isPalindrome) {
+            System.out.println("UC4 Result: \"" + text + "\" is a Palindrome.");
+        } else {
+            System.out.println("UC4 Result: \"" + text + "\" is NOT a Palindrome.");
         }
 
         System.out.println("\nProgram execution completed.");
