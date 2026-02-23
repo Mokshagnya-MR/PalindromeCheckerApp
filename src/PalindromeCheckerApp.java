@@ -1,6 +1,8 @@
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Deque;
+import java.util.ArrayDeque;
 
 public class PalindromeChecker {
 
@@ -27,6 +29,9 @@ public class PalindromeChecker {
 
         // UC6
         palindromeUsingQueueAndStack();
+
+        // UC7
+        palindromeUsingDeque();
     }
 
     // ================= UC1 =================
@@ -39,7 +44,6 @@ public class PalindromeChecker {
 
     // ================= UC2 =================
     private static void checkHardcodedPalindrome() {
-
         String word = "madam";
         String reversed = "";
 
@@ -56,7 +60,6 @@ public class PalindromeChecker {
 
     // ================= UC3 =================
     private static void palindromeUsingReverse() {
-
         String original = "level";
         String reversed = "";
 
@@ -73,7 +76,6 @@ public class PalindromeChecker {
 
     // ================= UC4 =================
     private static void palindromeUsingCharArray() {
-
         String text = "radar";
         char[] characters = text.toCharArray();
 
@@ -99,7 +101,6 @@ public class PalindromeChecker {
 
     // ================= UC5 =================
     private static void palindromeUsingStack() {
-
         String text = "civic";
         Stack<Character> stack = new Stack<>();
 
@@ -125,22 +126,19 @@ public class PalindromeChecker {
 
     // ================= UC6 =================
     private static void palindromeUsingQueueAndStack() {
-
         String text = "refer";
 
         Stack<Character> stack = new Stack<>();
         Queue<Character> queue = new LinkedList<>();
 
-        // Enqueue & Push
         for (int i = 0; i < text.length(); i++) {
             char ch = text.charAt(i);
-            stack.push(ch);     // LIFO
-            queue.add(ch);      // FIFO
+            stack.push(ch);
+            queue.add(ch);
         }
 
         boolean isPalindrome = true;
 
-        // Compare dequeue vs pop
         while (!queue.isEmpty()) {
             if (!queue.remove().equals(stack.pop())) {
                 isPalindrome = false;
@@ -149,9 +147,40 @@ public class PalindromeChecker {
         }
 
         if (isPalindrome) {
-            System.out.println("UC6 Result: \"" + text + "\" is a Palindrome.");
+            System.out.println("UC6 Result: \"" + text + "\" is a Palindrome.\n");
         } else {
-            System.out.println("UC6 Result: \"" + text + "\" is NOT a Palindrome.");
+            System.out.println("UC6 Result: \"" + text + "\" is NOT a Palindrome.\n");
+        }
+    }
+
+    // ================= UC7 =================
+    private static void palindromeUsingDeque() {
+
+        String text = "noon";
+        Deque<Character> deque = new ArrayDeque<>();
+
+        // Insert characters into deque (rear)
+        for (int i = 0; i < text.length(); i++) {
+            deque.addLast(text.charAt(i));
+        }
+
+        boolean isPalindrome = true;
+
+        // Compare front & rear
+        while (deque.size() > 1) {
+            char front = deque.removeFirst();
+            char rear = deque.removeLast();
+
+            if (front != rear) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("UC7 Result: \"" + text + "\" is a Palindrome.");
+        } else {
+            System.out.println("UC7 Result: \"" + text + "\" is NOT a Palindrome.");
         }
 
         System.out.println("\nProgram execution completed.");
