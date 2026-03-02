@@ -12,7 +12,7 @@ public class PalindromeChecker {
         displayWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a word to check: ");
+        System.out.print("Enter a word or sentence to check: ");
         String input = scanner.nextLine();
         System.out.println();
 
@@ -40,7 +40,10 @@ public class PalindromeChecker {
         // UC9
         palindromeUsingRecursion(input);
 
-        System.out.println("\nProgram execution completed.");
+        // UC10
+        palindromeIgnoreCaseAndSpaces(input);
+
+        System.out.println("Program execution completed.");
         scanner.close();
     }
 
@@ -316,5 +319,35 @@ public class PalindromeChecker {
         }
 
         return isPalindromeRecursive(text, start + 1, end - 1);
+    }
+
+    // ================= UC10 =================
+    private static void palindromeIgnoreCaseAndSpaces(String text) {
+
+        String normalized = text.toLowerCase();
+        normalized = normalized.replaceAll("\\s+", "");
+
+        int start = 0;
+        int end = normalized.length() - 1;
+        boolean isPalindrome = true;
+
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
+        }
+
+        if (isPalindrome) {
+            System.out.println("UC10 Result: \"" + text + "\" is a Palindrome (Ignoring case & spaces).");
+        } else {
+            System.out.println("UC10 Result: \"" + text + "\" is NOT a Palindrome (Ignoring case & spaces).");
+        }
+
+        System.out.println();
     }
 }
