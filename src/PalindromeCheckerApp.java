@@ -8,7 +8,6 @@ public class PalindromeChecker {
 
     public static void main(String[] args) {
 
-        // UC1
         displayWelcomeMessage();
 
         Scanner scanner = new Scanner(System.in);
@@ -43,6 +42,9 @@ public class PalindromeChecker {
         // UC10
         palindromeIgnoreCaseAndSpaces(input);
 
+        // UC11
+        palindromeUsingService(input);
+
         System.out.println("Program execution completed.");
         scanner.close();
     }
@@ -64,11 +66,10 @@ public class PalindromeChecker {
             reversed += word.charAt(i);
         }
 
-        if (word.equals(reversed)) {
+        if (word.equals(reversed))
             System.out.println("UC2 Result: \"" + word + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC2 Result: \"" + word + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
@@ -79,14 +80,13 @@ public class PalindromeChecker {
         String reversed = "";
 
         for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+            reversed += original.charAt(i);
         }
 
-        if (original.equals(reversed)) {
+        if (original.equals(reversed))
             System.out.println("UC3 Result: \"" + original + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC3 Result: \"" + original + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
@@ -94,28 +94,24 @@ public class PalindromeChecker {
     // ================= UC4 =================
     private static void palindromeUsingCharArray(String text) {
 
-        char[] characters = text.toCharArray();
-
+        char[] arr = text.toCharArray();
         int start = 0;
-        int end = characters.length - 1;
+        int end = arr.length - 1;
         boolean isPalindrome = true;
 
         while (start < end) {
-
-            if (characters[start] != characters[end]) {
+            if (arr[start] != arr[end]) {
                 isPalindrome = false;
                 break;
             }
-
             start++;
             end--;
         }
 
-        if (isPalindrome) {
+        if (isPalindrome)
             System.out.println("UC4 Result: \"" + text + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC4 Result: \"" + text + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
@@ -125,9 +121,8 @@ public class PalindromeChecker {
 
         Stack<Character> stack = new Stack<>();
 
-        for (int i = 0; i < text.length(); i++) {
+        for (int i = 0; i < text.length(); i++)
             stack.push(text.charAt(i));
-        }
 
         boolean isPalindrome = true;
 
@@ -138,11 +133,10 @@ public class PalindromeChecker {
             }
         }
 
-        if (isPalindrome) {
+        if (isPalindrome)
             System.out.println("UC5 Result: \"" + text + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC5 Result: \"" + text + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
@@ -168,11 +162,10 @@ public class PalindromeChecker {
             }
         }
 
-        if (isPalindrome) {
+        if (isPalindrome)
             System.out.println("UC6 Result: \"" + text + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC6 Result: \"" + text + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
@@ -182,27 +175,22 @@ public class PalindromeChecker {
 
         Deque<Character> deque = new ArrayDeque<>();
 
-        for (int i = 0; i < text.length(); i++) {
+        for (int i = 0; i < text.length(); i++)
             deque.addLast(text.charAt(i));
-        }
 
         boolean isPalindrome = true;
 
         while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-
-            if (front != rear) {
+            if (deque.removeFirst() != deque.removeLast()) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        if (isPalindrome) {
+        if (isPalindrome)
             System.out.println("UC7 Result: \"" + text + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC7 Result: \"" + text + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
@@ -211,30 +199,24 @@ public class PalindromeChecker {
     static class Node {
         char data;
         Node next;
-
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
+        Node(char data) { this.data = data; }
     }
 
     private static void palindromeUsingLinkedList(String text) {
 
         Node head = createLinkedList(text);
 
-        if (isPalindromeLinkedList(head)) {
+        if (isPalindromeLinkedList(head))
             System.out.println("UC8 Result: \"" + text + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC8 Result: \"" + text + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
 
     private static Node createLinkedList(String text) {
 
-        Node head = null;
-        Node tail = null;
+        Node head = null, tail = null;
 
         for (int i = 0; i < text.length(); i++) {
             Node newNode = new Node(text.charAt(i));
@@ -247,18 +229,14 @@ public class PalindromeChecker {
                 tail = newNode;
             }
         }
-
         return head;
     }
 
     private static boolean isPalindromeLinkedList(Node head) {
 
-        if (head == null || head.next == null) {
-            return true;
-        }
+        if (head == null || head.next == null) return true;
 
-        Node slow = head;
-        Node fast = head;
+        Node slow = head, fast = head;
 
         while (fast != null && fast.next != null) {
             slow = slow.next;
@@ -269,54 +247,41 @@ public class PalindromeChecker {
         Node firstHalf = head;
 
         while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
-                return false;
-            }
+            if (firstHalf.data != secondHalf.data) return false;
             firstHalf = firstHalf.next;
             secondHalf = secondHalf.next;
         }
-
         return true;
     }
 
     private static Node reverseList(Node head) {
 
         Node prev = null;
-        Node current = head;
 
-        while (current != null) {
-            Node next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
+        while (head != null) {
+            Node next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
         }
-
         return prev;
     }
 
     // ================= UC9 =================
     private static void palindromeUsingRecursion(String text) {
 
-        boolean result = isPalindromeRecursive(text, 0, text.length() - 1);
-
-        if (result) {
+        if (isPalindromeRecursive(text, 0, text.length() - 1))
             System.out.println("UC9 Result: \"" + text + "\" is a Palindrome.");
-        } else {
+        else
             System.out.println("UC9 Result: \"" + text + "\" is NOT a Palindrome.");
-        }
 
         System.out.println();
     }
 
     private static boolean isPalindromeRecursive(String text, int start, int end) {
 
-        if (start >= end) {
-            return true;
-        }
-
-        if (text.charAt(start) != text.charAt(end)) {
-            return false;
-        }
+        if (start >= end) return true;
+        if (text.charAt(start) != text.charAt(end)) return false;
 
         return isPalindromeRecursive(text, start + 1, end - 1);
     }
@@ -324,30 +289,59 @@ public class PalindromeChecker {
     // ================= UC10 =================
     private static void palindromeIgnoreCaseAndSpaces(String text) {
 
-        String normalized = text.toLowerCase();
-        normalized = normalized.replaceAll("\\s+", "");
+        String normalized = text.toLowerCase().replaceAll("\\s+", "");
 
         int start = 0;
         int end = normalized.length() - 1;
         boolean isPalindrome = true;
 
         while (start < end) {
-
             if (normalized.charAt(start) != normalized.charAt(end)) {
                 isPalindrome = false;
                 break;
             }
-
             start++;
             end--;
         }
 
-        if (isPalindrome) {
+        if (isPalindrome)
             System.out.println("UC10 Result: \"" + text + "\" is a Palindrome (Ignoring case & spaces).");
-        } else {
+        else
             System.out.println("UC10 Result: \"" + text + "\" is NOT a Palindrome (Ignoring case & spaces).");
-        }
 
         System.out.println();
+    }
+
+    // ================= UC11 =================
+    private static void palindromeUsingService(String text) {
+
+        PalindromeService service = new PalindromeService();
+        boolean result = service.checkPalindrome(text);
+
+        if (result)
+            System.out.println("UC11 Result (OOP Service): \"" + text + "\" is a Palindrome.");
+        else
+            System.out.println("UC11 Result (OOP Service): \"" + text + "\" is NOT a Palindrome.");
+
+        System.out.println();
+    }
+
+    // Encapsulated Service Class
+    static class PalindromeService {
+
+        public boolean checkPalindrome(String text) {
+
+            char[] arr = text.toCharArray();
+            int start = 0;
+            int end = arr.length - 1;
+
+            while (start < end) {
+                if (arr[start] != arr[end])
+                    return false;
+                start++;
+                end--;
+            }
+            return true;
+        }
     }
 }
